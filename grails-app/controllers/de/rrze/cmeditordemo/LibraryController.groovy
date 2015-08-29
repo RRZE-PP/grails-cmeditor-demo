@@ -1,0 +1,106 @@
+package de.rrze.cmeditordemo
+
+import grails.converters.JSON
+import groovy.transform.Synchronized
+
+
+class LibraryController {
+
+
+	def maxID = 5;
+	def files = [
+		[id:0, name:"myBookOnGroovy", folder:"/", content:"println 'Hello World!'", mode: "text/x-groovy", author: "Wolfgang Haendler"],
+		[id:1, name:"myBookOnJavascript", folder:"/", content:"console.log('Hello World!')", mode: "text/javascript", author: "Wolfgang Haendler"],
+		[id:2, name:"myBookOnHTML", folder:"/", content:"<html><head><title>Hello World!</title></head><body>Hallo Welt!</body></html>", mode: "text/html", author: "Wolfgang Haendler"],
+		[id:3, name:"myBookOnDynamicHTML", folder:"/published", content:"<html><body><script>document.title='Hello World'; document.write('Hallo Welt!');</script></body></html>", mode: "application/x-ejs", author: "Wolfgang Haendler"],
+		[id:4, name:"myBookOnCPP", folder:"/published", content:"std::cout << \"Lorem ipsum sit dolor et amet.\" << std::endl", mode: "text/x-c++src", author: "Wolfgang Haendler"],
+		[id:5, name:"myBrokenBook", folder:null, content:"Hidden in folder view, also opening this will fail.", author: "Wolfgang Haendler"]
+	]
+
+	@Synchronized
+	def deleteFile(){
+		def id = params.int('id')
+
+		println("====== DELETE FILE CALLED ======")
+		println(params as JSON)
+		println("================================")
+
+		if(id == 5)
+			render ([status: "error", msg: "I failed. Told you so"] as JSON)
+
+
+		def removeThis = null
+		files.each( {
+			if(it.id == id){
+				removeThis = it
+			}
+		})
+
+		if(removeThis != null){
+			files.remove(removeThis)
+			render ([status:"success", result:files[id]] as JSON)
+		}
+
+		render ([status: "error", msg: "Unknown id"] as JSON)
+	}
+
+	@Synchronized
+	def listFiles(){
+
+		println("======= LIST FILES CALLED ======")
+
+		render ([status:"success",
+			result: files.collect({
+				[id:it.id, name: it.name, folder: it.folder]
+			})
+		] as JSON)
+	}
+
+	@Synchronized
+	def loadFile(){
+		def id = params.int('id')
+
+		println("======= LOAD FILE CALLED =======")
+		println(params as JSON)
+		println("================================")
+
+		if(id == 5)
+			render ([status: "error", msg: "I failed. Told you so"] as JSON)
+
+		files.each( {
+			if(it.id == id){
+				render ([status:"success", result:it] as JSON)
+			}
+		})
+
+		render ([status: "error", msg: "Unknown id"] as JSON)
+	}
+
+	@Synchronized
+	def saveFile(){
+		def id = params.int('id')
+
+		println("======= SAVE FILE CALLED =======")
+		println(params as JSON)
+		println("================================")
+
+		if(id == 5)
+			render ([status: "error", msg: "I failed. Told you so"] as JSON)
+
+		if(id == null){
+			files.push([id:++maxID, name: params['name'], content: params['content'], mode: params["mode"], folder: params["folder"]])
+			render ([status: "success", msg: "file was saved", newId: maxID] as JSON)
+		}else{
+			files.each( {
+				if(it.id == id){
+					it.content = params['content']
+					it.name = params['name']
+					it.mode = params['mode']
+					it.folder = params['folder']
+					render ([status: "success", msg: "file was saved"] as JSON)
+				}
+			} )
+		}
+		render ([status: "error", msg: "Unknown id"] as JSON)
+	}
+}
