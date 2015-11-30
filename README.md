@@ -3,7 +3,10 @@ CMEditor is a simple way to use the popular CodeMirror web editor in grails appl
 
 This is its demo application. You can find the actual plugin at [http://github.com/RRZE-PP/grails-cmeditor](http://github.com/RRZE-PP/grails-cmeditor)
 
-##Running the demo
+##Non-interactive demo
+![Recorded demo](https://raw.githubusercontent.com/RRZE-PP/grails-cmeditor-demo/master/example.gif)
+
+##Running the interactive demo
 
 1. Check out the repo
 	```
