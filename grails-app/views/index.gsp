@@ -17,7 +17,7 @@
 			ajax="[listURL:'library/listFiles', deleteURL:'library/deleteFile', updateURL:'library/saveFile', getURL:'library/loadFile']">
 
 		<label for="author"> <g:message code="myLibrary.author.label" default="Author" /></label>
-		<g:textField name="author" class="cmeditor-field" /><br /><br />
+		<g:textField name="author.name" class="cmeditor-field" /><br /><br />
 
 	</cmeditor:tabs>
 

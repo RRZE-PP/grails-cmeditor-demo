@@ -9,12 +9,12 @@ class LibraryController {
 
 	def maxID = 5;
 	def files = [
-		[id:0, name:"myBookOnGroovy", folder:"/", content:"println 'Hello World!'", mode: "text/x-groovy", author: "Wolfgang Haendler"],
-		[id:1, name:"myBookOnJavascript", folder:"/", content:"console.log('Hello World!')", mode: "text/javascript", author: "Wolfgang Haendler"],
-		[id:2, name:"myBookOnHTML", folder:"/", content:"<html><head><title>Hello World!</title></head><body>Hallo Welt!</body></html>", mode: "text/html", author: "Wolfgang Haendler"],
-		[id:3, name:"myBookOnDynamicHTML", folder:"/published", content:"<html><body><script>document.title='Hello World'; document.write('Hallo Welt!');</script></body></html>", mode: "application/x-ejs", author: "Wolfgang Haendler"],
-		[id:4, name:"myBookOnCPP", folder:"/published", content:"std::cout << \"Lorem ipsum sit dolor et amet.\" << std::endl", mode: "text/x-c++src", author: "Wolfgang Haendler"],
-		[id:5, name:"myBrokenBook", folder:null, content:"Hidden in folder view, also opening this will fail.", author: "Wolfgang Haendler"]
+		[id:0, name:"myBookOnGroovy", folder:"/", content:"println 'Hello World!'", mode: "text/x-groovy", author: [name:"Wolfgang Haendler"]],
+		[id:1, name:"myBookOnJavascript", folder:"/", content:"console.log('Hello World!')", mode: "text/javascript", author: [name:"Wolfgang Haendler"]],
+		[id:2, name:"myBookOnHTML", folder:"/", content:"<html><head><title>Hello World!</title></head><body>Hallo Welt!</body></html>", mode: "text/html", author: [name:"Wolfgang Haendler"]],
+		[id:3, name:"myBookOnDynamicHTML", folder:"/published", content:"<html><body><script>document.title='Hello World'; document.write('Hallo Welt!');</script></body></html>", mode: "application/x-ejs", author: [name:"Wolfgang Haendler"]],
+		[id:4, name:"myBookOnCPP", folder:"/published", content:"std::cout << \"Lorem ipsum sit dolor et amet.\" << std::endl", mode: "text/x-c++src", author: [name:"Wolfgang Haendler"]],
+		[id:5, name:"myBrokenBook", folder:null, content:"Hidden in folder view, also opening this will fail.", author: [name:"Wolfgang Haendler"]]
 	]
 
 	@Synchronized
@@ -88,7 +88,7 @@ class LibraryController {
 			render ([status: "error", msg: "I failed. Told you so"] as JSON)
 
 		if(id == null){
-			files.push([id:++maxID, name: params['name'], content: params['content'], mode: params["mode"], folder: params["folder"]])
+			files.push([id:++maxID, name: params['name'], content: params['content'], mode: params["mode"], folder: params["folder"], author: [name: params["author.name"]]])
 			render ([status: "success", msg: "file was saved", newId: maxID] as JSON)
 		}else{
 			files.each( {
@@ -97,6 +97,7 @@ class LibraryController {
 					it.name = params['name']
 					it.mode = params['mode']
 					it.folder = params['folder']
+					it.author = [name: params["author.name"]]
 					render ([status: "success", msg: "file was saved"] as JSON)
 				}
 			} )
