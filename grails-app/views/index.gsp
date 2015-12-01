@@ -13,7 +13,6 @@
 
 	<cmeditor:tabs
 			name="book"
-			options="[defaultContent:'Lorem ipsum sit dolor', defaultMode:'text/html']"
 			ajax="[listURL:'library/listFiles', deleteURL:'library/deleteFile', updateURL:'library/saveFile', getURL:'library/loadFile']">
 
 		<label for="author"> <g:message code="myLibrary.author.label" default="Author" /></label>
