@@ -38,7 +38,7 @@ class LibraryController {
 
 		if(removeThis != null){
 			files.remove(removeThis)
-			render ([status:"success", result:files[id]] as JSON)
+			render ([status:"success", msg: "File deleted"] as JSON)
 		}
 
 		render ([status: "error", msg: "Unknown id"] as JSON)
