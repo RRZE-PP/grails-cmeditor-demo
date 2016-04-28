@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main"/>
 		<title>Welcome to my library</title>
+    	<meta name="layout" content="main"/>
 
 		<asset:javascript src="cmeditor.js"/>
 		<asset:stylesheet href="cmeditor.css"/>
