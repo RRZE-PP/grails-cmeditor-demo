@@ -4,8 +4,9 @@
 		<title>Welcome to my library</title>
     	<meta name="layout" content="main"/>
 
-		<asset:javascript src="cmeditor.js"/>
-		<asset:stylesheet href="cmeditor.css"/>
+	  <asset:javascript src="jquery-2.2.0.min.js"/>
+	  <asset:javascript src="cmeditor.js"/>
+	  <asset:stylesheet href="cmeditor.css"/>
 
 	</head>
 	<body>
